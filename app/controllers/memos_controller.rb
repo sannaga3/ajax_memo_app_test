@@ -3,6 +3,7 @@ class MemosController < ApplicationController
 
   # GET /memos or /memos.json
   def index
+    @memo = Memo.new
     @memos = Memo.all
   end
 
@@ -10,10 +11,6 @@ class MemosController < ApplicationController
   def show
   end
 
-  # GET /memos/new
-  def new
-    @memo = Memo.new
-  end
 
   # GET /memos/1/edit
   def edit

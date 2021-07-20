@@ -10,6 +10,9 @@
     </tr>
   </thead>
 
+  <%= render 'form', memo: @memo %>
+
+  <hr>
   <tbody>
     <% @memos.each do |memo| %>
       <tr>
@@ -21,7 +24,3 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Memo', new_memo_path %>
