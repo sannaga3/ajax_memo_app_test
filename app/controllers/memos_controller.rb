@@ -11,9 +11,13 @@ class MemosController < ApplicationController
   def show
   end
 
-
   # GET /memos/1/edit
   def edit
+    respond_to do |format|
+      flash.now[:notice] = 'コメントの編集中'
+      format.html { redirect_to @comment }
+      format.js { render :edit }
+    end
   end
 
   # POST /memos or /memos.json
@@ -22,8 +26,8 @@ class MemosController < ApplicationController
 
     respond_to do |format|
       if @memo.save
-        format.html { redirect_to @memo, notice: "Memo was successfully created." }
-        format.json { render :show, status: :created, location: @memo }
+        format.html { redirect_to memos_path, notice: "Memo was successfully created." }
+        format.json { render :index, status: :created, location: @memo }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @memo.errors, status: :unprocessable_entity }
@@ -33,13 +37,14 @@ class MemosController < ApplicationController
 
   # PATCH/PUT /memos/1 or /memos/1.json
   def update
+    @memos = Memo.all
     respond_to do |format|
       if @memo.update(memo_params)
-        format.html { redirect_to @memo, notice: "Memo was successfully updated." }
-        format.json { render :show, status: :ok, location: @memo }
+        # flash.now[:notice] = 'メモが編集されました'
+        format.js { render :index }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @memo.errors, status: :unprocessable_entity }
+        # flash.now[:notice] = 'コメントの編集に失敗しました'
+        format.js { render :index }
       end
     end
   end

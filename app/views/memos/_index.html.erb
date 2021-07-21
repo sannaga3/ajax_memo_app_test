@@ -1,0 +1,9 @@
+<% memos = @memos.order(created_at: :desc) %>
+<% memos.each do |memo| %>
+  <div id ="this_memo_<%= memo.id %>">
+    <span>投稿日時:<%= time_ago_in_words(memo.created_at) %></span>
+    <span><%= link_to 'Edit', edit_memo_path(memo), remote: true %></span>
+    <span><%= link_to 'Destroy', memo, method: :delete, data: { confirm: 'Are you sure?' } %></span>
+    <%= simple_format(memo.content) %>
+  </div>
+<% end %>
