@@ -8,4 +8,5 @@
     <span><%= link_to 'Destroy', memo_path(memo.id), method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></span>
     <%= simple_format(memo.content) %>
   </div>
+  <hr>
 <% end %>

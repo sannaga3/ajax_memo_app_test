@@ -1,13 +1,12 @@
 class MemosController < ApplicationController
-  before_action :set_memo, only: %i[ show edit update destroy ]
+  before_action :set_memo, only: %i[show edit update destroy]
   before_action :set_memos
 
   def index
     @memo = Memo.new
   end
 
-  def show
-  end
+  def show; end
 
   def edit
     respond_to do |format|
@@ -20,25 +19,23 @@ class MemosController < ApplicationController
   def create
     @memo = Memo.new(memo_params)
     respond_to do |format|
-      if @memo.save
-        flash.now[:notice] = 'メモが作成されました'
-        format.js { render :index }
-      else
-        flash.now[:notice] = 'メモの作成に失敗しました'
-        format.js { render :index }
-      end
+      flash.now[:notice] = if @memo.save
+                             'メモが作成されました'
+                           else
+                             'メモの作成に失敗しました'
+                           end
+      format.js { render :index }
     end
   end
 
   def update
     respond_to do |format|
-      if @memo.update(memo_params)
-        flash.now[:notice] = 'メモが編集されました'
-        format.js { render :index }
-      else
-        flash.now[:notice] = 'コメントの編集に失敗しました'
-        format.js { render :index }
-      end
+      flash.now[:notice] = if @memo.update(memo_params)
+                             'メモが編集されました'
+                           else
+                             'コメントの編集に失敗しました'
+                           end
+      format.js { render :index }
     end
   end
 
@@ -52,15 +49,15 @@ class MemosController < ApplicationController
 
   private
 
-    def set_memo
-      @memo = Memo.find(params[:id])
-    end
+  def set_memo
+    @memo = Memo.find(params[:id])
+  end
 
-    def set_memos
-      @memos = Memo.all
-    end
+  def set_memos
+    @memos = Memo.all
+  end
 
-    def memo_params
-      params.require(:memo).permit(:content)
-    end
+  def memo_params
+    params.require(:memo).permit(:content)
+  end
 end
