@@ -19,14 +19,13 @@ class MemosController < ApplicationController
 
   def create
     @memo = Memo.new(memo_params)
-
     respond_to do |format|
       if @memo.save
-        format.html { redirect_to memos_path, notice: "コメントが作成されました" }
-        format.json { render :index, status: :created, location: @memo }
+        flash.now[:notice] = 'メモが作成されました'
+        format.js { render :index }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @memo.errors, status: :unprocessable_entity }
+        flash.now[:notice] = 'メモの作成に失敗しました'
+        format.js { render :index }
       end
     end
   end
