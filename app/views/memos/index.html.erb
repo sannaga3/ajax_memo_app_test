@@ -3,7 +3,6 @@
 <%= render 'form', memo: @memo %>
 <hr>
 <h3>memo list</h3>
-
 <% if @memos != nil %>
   <div id="memos_area">
     <%= render 'memos/index', { memos: @memos } %>

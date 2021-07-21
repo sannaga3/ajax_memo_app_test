@@ -1,4 +1,6 @@
 <% memos = @memos.order(created_at: :desc) %>
+<%= render 'layouts/flash' %>
+<br>
 <% memos.each do |memo| %>
   <div id ="this_memo_<%= memo.id %>">
     <span>投稿日時:<%= time_ago_in_words(memo.created_at) %></span>
