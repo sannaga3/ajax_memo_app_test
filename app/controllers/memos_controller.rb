@@ -1,12 +1,10 @@
 class MemosController < ApplicationController
-  before_action :set_memo, only: %i[show edit update destroy]
+  before_action :set_memo, only: %i[ edit update destroy]
   before_action :set_memos
 
   def index
     @memo = Memo.new
   end
-
-  def show; end
 
   def edit
     respond_to do |format|
