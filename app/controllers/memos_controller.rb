@@ -1,9 +1,9 @@
 class MemosController < ApplicationController
   before_action :set_memo, only: %i[ show edit update destroy ]
+  before_action :set_memos
 
   def index
     @memo = Memo.new
-    @memos = Memo.all
   end
 
   def show
@@ -22,7 +22,7 @@ class MemosController < ApplicationController
 
     respond_to do |format|
       if @memo.save
-        format.html { redirect_to memos_path, notice: "Memo was successfully created." }
+        format.html { redirect_to memos_path, notice: "コメントが作成されました" }
         format.json { render :index, status: :created, location: @memo }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -32,7 +32,6 @@ class MemosController < ApplicationController
   end
 
   def update
-    @memos = Memo.all
     respond_to do |format|
       if @memo.update(memo_params)
         flash.now[:notice] = 'メモが編集されました'
@@ -44,12 +43,11 @@ class MemosController < ApplicationController
     end
   end
 
-  # DELETE /memos/1 or /memos/1.json
   def destroy
     @memo.destroy
     respond_to do |format|
-      format.html { redirect_to memos_url, notice: "Memo was successfully destroyed." }
-      format.json { head :no_content }
+      flash.now[:notice] = 'コメントが削除されました'
+      format.js { render :index }
     end
   end
 
@@ -57,6 +55,10 @@ class MemosController < ApplicationController
 
     def set_memo
       @memo = Memo.find(params[:id])
+    end
+
+    def set_memos
+      @memos = Memo.all
     end
 
     def memo_params

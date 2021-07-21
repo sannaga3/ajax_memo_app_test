@@ -5,7 +5,7 @@
   <div id ="this_memo_<%= memo.id %>">
     <span>投稿日時:<%= time_ago_in_words(memo.created_at) %></span>
     <span><%= link_to 'Edit', edit_memo_path(memo), remote: true %></span>
-    <span><%= link_to 'Destroy', memo, method: :delete, data: { confirm: 'Are you sure?' } %></span>
+    <span><%= link_to 'Destroy', memo_path(memo.id), method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></span>
     <%= simple_format(memo.content) %>
   </div>
 <% end %>
